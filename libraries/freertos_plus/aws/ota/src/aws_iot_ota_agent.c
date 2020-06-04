@@ -1876,16 +1876,6 @@ static DocParseErr_t prvParseJSONbyModel( const char * pcJSON,
         OTA_LOG_L1( "[%s] Error (%d) parsing JSON document.\r\n", OTA_METHOD_NAME, ( int32_t ) eErr );
     }
 
-    /* Check JSON document pointer is valid.*/
-    if( eErr == eDocParseErr_None )
-    {
-        if( pcJSON == NULL )
-        {
-            OTA_LOG_L1( "[%s] JSON document pointer is NULL!\r\n", OTA_METHOD_NAME );
-            eErr = eDocParseErr_NullDocPointer;
-        }
-    }
-
     configASSERT( eErr != eDocParseErr_Unknown );
     return eErr;
 }
@@ -2500,7 +2490,7 @@ static IngestResult_t prvIngestDataBlock( OTA_FileContext_t * C,
     }
 
     /* Close the file and cleanup.*/
-    if( eIngestResult == eIngest_Result_Uninitialized )
+    if( eIngestResult == eIngest_Result_Accepted_Continue )
     {
         if( C->ulBlocksRemaining == 0U )
         {
