@@ -99,6 +99,7 @@ typedef enum
 {
     eDocParseErr_Unknown = -1,          /* The error code has not yet been set by a logic path. */
     eDocParseErr_None = 0,
+    eDocParseErr_Empty,                 /* We received an empty job document. */
     eDocParseErr_OutOfMemory,           /* We failed to allocate enough memory for a field. */
     eDocParseErr_FieldTypeMismatch,     /* The field type parsed does not match the document model. */
     eDocParseErr_Base64Decode,          /* There was an error decoding the base64 data. */

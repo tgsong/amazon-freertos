@@ -1638,6 +1638,19 @@ static DocParseErr_t prvParseJSONbyModel( const char * pcJSON,
             OTA_LOG_L1( "[%s] jsmn_parse didn't match token count when parsing.\r\n", OTA_METHOD_NAME );
             eErr = eDocParseErr_JasmineCountMismatch;
         }
+
+        /* Likely an empty job doc containing only timestamp. 3 means the top level json object,
+         * the "timestamp" key, and "timestamp" key's value. */
+        if( ulNumTokens == 3 )
+        {
+            if( ( pxTokens[ 0 ].type == JSMN_OBJECT ) &&
+                ( pxTokens[ 1 ].type == JSMN_STRING ) &&
+                strncmp( pcJSON + pxTokens[ 1 ].start, "timestamp", pxTokens[ 1 ].end - pxTokens[ 1 ].start )
+                )
+            {
+                eErr = eDocParseErr_Empty;
+            }
+        }
     }
 
     /* Process JSON tokens. */
@@ -1868,6 +1881,10 @@ static DocParseErr_t prvParseJSONbyModel( const char * pcJSON,
             eErr = eDocParseErr_MalformedDoc;
         }
     }
+    else if( eErr == eDocParseErr_Empty )
+    {
+        OTA_LOG_L1( "[%s] Empty job document received, no pending jobs. \r\n", OTA_METHOD_NAME );
+    }
     else
     {
         OTA_LOG_L1( "[%s] Error (%d) parsing JSON document.\r\n", OTA_METHOD_NAME, ( int32_t ) eErr );
@@ -2018,7 +2035,7 @@ static OTA_FileContext_t * prvParseJobDoc( const char * pcJSON,
     };
 
     OTA_Err_t xOTAErr = kOTA_Err_None;
-    OTA_JobParseErr_t eErr = eOTA_JobParseErr_Unknown;
+    OTA_JobParseErr_t eErr = eDocParseErr_None;
     OTA_FileContext_t * pxFinalFile = NULL;
     OTA_FileContext_t xFileContext = { 0 };
     OTA_FileContext_t * C = &xFileContext;
@@ -2026,17 +2043,40 @@ static OTA_FileContext_t * prvParseJobDoc( const char * pcJSON,
 
     JSON_DocModel_t xOTA_JobDocModel;
 
-    if( prvInitDocModel( &xOTA_JobDocModel,
-                         xOTA_JobDocModelParamStructure,
-                         ( uint32_t ) C, /*lint !e9078 !e923 Intentionally casting context pointer to a value for prvInitDocModel. */
-                         sizeof( OTA_FileContext_t ),
-                         OTA_NUM_JOB_PARAMS ) != eDocParseErr_None )
+    eErr = prvInitDocModel( &xOTA_JobDocModel,
+                            xOTA_JobDocModelParamStructure,
+                            ( uint32_t ) C, /*lint !e9078 !e923 Intentionally casting context pointer to a value for prvInitDocModel. */
+                            sizeof( OTA_FileContext_t ),
+                            OTA_NUM_JOB_PARAMS );
+
+    if( eErr != eDocParseErr_None )
     {
         eErr = eOTA_JobParseErr_BadModelInitParams;
     }
-    else if( prvParseJSONbyModel( pcJSON, ulMsgLen, &xOTA_JobDocModel ) == eDocParseErr_None )
-    { /* Validate the job document parameters. */
-        eErr = eOTA_JobParseErr_None;
+
+    if( eErr != eDocParseErr_None )
+    {
+        eErr = prvParseJSONbyModel( pcJSON, ulMsgLen, &xOTA_JobDocModel );
+    }
+
+    if( eErr == eDocParseErr_Empty )
+    {
+        /* Receiving an empty job document while we have an active job means the current job is
+         * terminated from the cloud service, we should abort immediately. */
+        if( xOTA_Agent.pcOTA_Singleton_ActiveJobName != NULL )
+        {
+            OTA_LOG_L1( "[%s] Current job is terminated from cloud, aborting job.\r\n", OTA_METHOD_NAME );
+
+            ( void ) xOTA_Agent.xPALCallbacks.xSetPlatformImageState( xOTA_Agent.ulServerFileID, eOTA_ImageState_Aborted );
+            ( void ) prvOTA_Close( &xOTA_Agent.pxOTA_Files[ xOTA_Agent.ulFileIndex ] );
+
+            /* Set new active job name. */
+            vPortFree( xOTA_Agent.pcOTA_Singleton_ActiveJobName );
+        }
+    }
+    else if( eErr == eDocParseErr_None )
+    {
+        /* Validate the job document parameters. */
 
         if( C->ulFileSize == 0U )
         {
@@ -2200,7 +2240,7 @@ static OTA_FileContext_t * prvParseJobDoc( const char * pcJSON,
 
     configASSERT( eErr != eOTA_JobParseErr_Unknown );
 
-    if( eErr != eOTA_JobParseErr_None )
+    if( eErr != eDocParseErr_Empty && eErr != eOTA_JobParseErr_None )
     {
         /* If job parsing failed AND there's a job ID, update the job state to FAILED with
          * a reason code.  Without a job ID, we can't update the status in the job service. */
