@@ -1645,7 +1645,7 @@ static DocParseErr_t prvParseJSONbyModel( const char * pcJSON,
         {
             if( ( pxTokens[ 0 ].type == JSMN_OBJECT ) &&
                 ( pxTokens[ 1 ].type == JSMN_STRING ) &&
-                strncmp( pcJSON + pxTokens[ 1 ].start, "timestamp", pxTokens[ 1 ].end - pxTokens[ 1 ].start )
+                0 == strncmp( pcJSON + pxTokens[ 1 ].start, "timestamp", pxTokens[ 1 ].end - pxTokens[ 1 ].start )
                 )
             {
                 eErr = eDocParseErr_Empty;
