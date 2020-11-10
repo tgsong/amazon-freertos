@@ -45,3 +45,6 @@
 [submodule "libraries/device_shadow_for_aws"]
 	path = libraries/device_shadow_for_aws
 	url = https://github.com/aws/device-shadow-for-aws-iot-embedded-sdk.git
+[submodule "libraries/ota"]
+	path = libraries/ota
+	url = https://github.com/aws/ota-for-aws-iot-embedded-sdk.git
