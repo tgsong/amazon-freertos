@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup Label="ProjectConfigurations">
 		<ProjectConfiguration Include="Debug|Win32">
@@ -7,29 +7,34 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
+		<VCProjectVersion>15.0</VCProjectVersion>
 		<ProjectGuid>{C686325E-3261-42F7-AEB1-DDE5280E1CEB}</ProjectGuid>
+		<Keyword>Win32Proj</Keyword>
 		<ProjectName>aws_demos</ProjectName>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
 	<PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;" Label="Configuration">
 		<ConfigurationType>Application</ConfigurationType>
+		<UseDebuglib>true</UseDebuglib>
 		<UseOfMfc>false</UseOfMfc>
-		<CharacterSet>Unicode</CharacterSet>
 		<PlatformToolset>v141</PlatformToolset>
+		<CharacterSet>Unicode</CharacterSet>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
 	<ImportGroup Label="ExtensionSettings"/>
-	<ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;" Label="PropertySheets">
+	<ImportGroup Label="Shared"/>
+	<ImportGroup Label="PropertySheets" Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">
 		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" Label="LocalAppDataPlatform"/>
 		<Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props"/>
 	</ImportGroup>
 	<PropertyGroup Label="UserMacros"/>
-	<PropertyGroup>
-		<_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-		<OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">.\Debug\</OutDir>
-		<IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">.\Debug\</IntDir>
-		<LinkIncremental Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</LinkIncremental>
-		<CodeAnalysisRuleSet Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">AllRules.ruleset</CodeAnalysisRuleSet>
+	<PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">
+		<OutDir>.\Debug\</OutDir>
+		<IntDir>.\Debug\</IntDir>
+		<LinkIncremental>true</LinkIncremental>
+		<LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;</LibraryPath>
+		<IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
 	</PropertyGroup>
 	<ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">
 		<Midl>
@@ -37,12 +42,17 @@
 			<HeaderFileName/>
 		</Midl>
 		<ClCompile>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<WarningLevel>Level3</WarningLevel>
 			<Optimization>Disabled</Optimization>
-			<AdditionalIncludeDirectories>..\..\..\..\..\freertos_kernel\include;..\..\..\..\..\freertos_kernel\portable\MSVC-MingW;..\..\..\..\..\vendors\pc\boards\windows\aws_demos\config_files;..\..\..\..\..\vendors\pc\boards\windows\aws_demos\application_code;..\..\..\..\..\demos\include;..\..\..\..\..\demos\network_manager;..\..\..\..\..\libraries\c_sdk\standard\common\include\private;..\..\..\..\..\libraries\c_sdk\standard\common\include;..\..\..\..\..\libraries\abstractions\platform\include;..\..\..\..\..\libraries\abstractions\platform\freertos\include;..\..\..\..\..\libraries\abstractions\platform\include\platform;..\..\..\..\..\libraries\abstractions\secure_sockets\include;..\..\..\..\..\libraries\freertos_plus\standard\freertos_plus_tcp\include;..\..\..\..\..\libraries\freertos_plus\standard\freertos_plus_tcp\portable\Compiler\MSVC;..\..\..\..\..\libraries\freertos_plus\standard\tls\include;..\..\..\..\..\libraries\freertos_plus\standard\crypto\include;..\..\..\..\..\libraries\abstractions\pkcs11\corePKCS11\source\include;..\..\..\..\..\libraries\freertos_plus\standard\utils\include;..\..\..\..\..\libraries\logging\include;..\..\..\..\..\demos\dev_mode_key_provisioning\include;..\..\..\..\..\libraries\c_sdk\aws\defender\include;..\..\..\..\..\libraries\c_sdk\standard\mqtt\include;..\..\..\..\..\libraries\coreMQTT\source\include;..\..\..\..\..\libraries\coreMQTT\source\interface;..\..\..\..\..\libraries\abstractions\retry_utils;..\..\..\..\..\libraries\abstractions\transport\secure_sockets;..\..\..\..\..\libraries\c_sdk\standard\serializer\include;..\..\..\..\..\libraries\c_sdk\aws\shadow\include;..\..\..\..\..\libraries\c_sdk\standard\https\include;..\..\..\..\..\libraries\coreHTTP\source\3rdparty\http_parser;..\..\..\..\..\libraries\freertos_plus\aws\greengrass\include;..\..\..\..\..\libraries\freertos_plus\aws\ota\src;..\..\..\..\..\libraries\freertos_plus\aws\ota\include;..\..\..\..\..\libraries\3rdparty\mbedtls\include;..\..\..\..\..\libraries\freertos_plus\standard\freertos_plus_cli\include;..\..\..\..\..\libraries\abstractions\posix\include;..\..\..\..\..\vendors\pc\boards\windows\ports\posix;..\..\..\..\..\libraries\freertos_plus\standard\freertos_plus_posix\include;..\..\..\..\..\libraries\coreHTTP\source\include;..\..\..\..\..\libraries\coreHTTP\source\interface;..\..\..\..\..\libraries\coreHTTP\source\3rdparty\http_parser;..\..\..\..\..\libraries\coreJSON\source\include;..\..\..\..\..\libraries\device_shadow_for_aws\source\include;..\..\..\..\..\libraries\device_defender_for_aws\source\include;..\..\..\..\..\libraries\jobs_for_aws\source\include;..\..\..\..\..\demos\common\mqtt_demo_helpers;..\..\..\..\..\libraries\3rdparty\tracealyzer_recorder\Include;..\..\..\..\..\libraries\3rdparty\win_pcap;..\..\..\..\..\libraries\3rdparty\pkcs11;..\..\..\..\..\libraries\abstractions\pkcs11\corePKCS11\source\portable\mbedtls\include;..\..\..\..\..\libraries\3rdparty\mbedtls\include\mbedtls;..\..\..\..\..\libraries\3rdparty\mbedtls_utils;..\..\..\..\..\libraries\3rdparty\mbedtls_config;..\..\..\..\..\libraries\3rdparty\tinycbor\src;..\..\..\..\..\libraries\3rdparty\jsmn</AdditionalIncludeDirectories>
-			<PreprocessorDefinitions>MBEDTLS_CONFIG_FILE=&quot;aws_mbedtls_config.h&quot;;CONFIG_MEDTLS_USE_AFR_MEMORY;WIN32;_DEBUG;__free_rtos__;_CONSOLE;_WIN32_WINNT=0x0500;WINVER=0x400;_CRT_SECURE_NO_WARNINGS;__PRETTY_FUNCTION__=__FUNCTION__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions/>
+			<AdditionalUsingDirectories/>
+			<AdditionalIncludeDirectories>..\..\..\..\..\freertos_kernel\include;..\..\..\..\..\freertos_kernel\portable\MSVC-MingW;..\..\..\..\..\vendors\pc\boards\windows\aws_demos\config_files;..\..\..\..\..\vendors\pc\boards\windows\aws_demos\application_code;..\..\..\..\..\demos\include;..\..\..\..\..\demos\network_manager;..\..\..\..\..\libraries\c_sdk\standard\common\include\private;..\..\..\..\..\libraries\c_sdk\standard\common\include;..\..\..\..\..\libraries\abstractions\platform\include;..\..\..\..\..\libraries\abstractions\platform\freertos\include;..\..\..\..\..\libraries\abstractions\platform\include\platform;..\..\..\..\..\libraries\abstractions\secure_sockets\include;..\..\..\..\..\libraries\freertos_plus\standard\freertos_plus_tcp\include;..\..\..\..\..\libraries\freertos_plus\standard\freertos_plus_tcp\portable\Compiler\MSVC;..\..\..\..\..\libraries\freertos_plus\standard\tls\include;..\..\..\..\..\libraries\freertos_plus\standard\crypto\include;..\..\..\..\..\libraries\abstractions\pkcs11\corePKCS11\source\include;..\..\..\..\..\libraries\freertos_plus\standard\utils\include;..\..\..\..\..\libraries\logging\include;..\..\..\..\..\demos\dev_mode_key_provisioning\include;..\..\..\..\..\libraries\c_sdk\aws\defender\include;..\..\..\..\..\libraries\c_sdk\standard\mqtt\include;..\..\..\..\..\libraries\coreMQTT\source\include;..\..\..\..\..\libraries\coreMQTT\source\interface;..\..\..\..\..\libraries\abstractions\retry_utils;..\..\..\..\..\libraries\abstractions\transport\secure_sockets;..\..\..\..\..\libraries\c_sdk\standard\serializer\include;..\..\..\..\..\libraries\c_sdk\aws\shadow\include;..\..\..\..\..\libraries\c_sdk\standard\https\include;..\..\..\..\..\libraries\coreHTTP\source\3rdparty\http_parser;..\..\..\..\..\libraries\freertos_plus\aws\greengrass\include;..\..\..\..\..\libraries\freertos_plus\standard\freertos_plus_cli\include;..\..\..\..\..\libraries\abstractions\posix\include;..\..\..\..\..\vendors\pc\boards\windows\ports\posix;..\..\..\..\..\libraries\freertos_plus\standard\freertos_plus_posix\include;..\..\..\..\..\libraries\coreHTTP\source\include;..\..\..\..\..\libraries\coreHTTP\source\interface;..\..\..\..\..\libraries\coreHTTP\source\3rdparty\http_parser;..\..\..\..\..\libraries\coreJSON\source\include;..\..\..\..\..\libraries\device_shadow_for_aws\source\include;..\..\..\..\..\libraries\device_defender_for_aws\source\include;..\..\..\..\..\libraries\jobs_for_aws\source\include;..\..\..\..\..\libraries\ota\source;..\..\..\..\..\libraries\ota\source\dependency\coreJSON\source\include;..\..\..\..\..\libraries\ota\source\dependency\3rdparty\tinycbor\src;..\..\..\..\..\libraries\ota\source\include;..\..\..\..\..\libraries\ota\source\portable;..\..\..\..\..\libraries\ota\source\portable\os;..\..\..\..\..\demos\common\mqtt_demo_helpers;..\..\..\..\..\demos\mqtt_subscription_manager;..\..\..\..\..\demos\ota;..\..\..\..\..\libraries\3rdparty\tracealyzer_recorder\Include;..\..\..\..\..\libraries\3rdparty\win_pcap;..\..\..\..\..\libraries\3rdparty\pkcs11;..\..\..\..\..\libraries\3rdparty\mbedtls\include;..\..\..\..\..\libraries\abstractions\pkcs11\corePKCS11\source\portable\mbedtls\include;..\..\..\..\..\libraries\3rdparty\mbedtls\include\mbedtls;..\..\..\..\..\libraries\3rdparty\mbedtls_utils;..\..\..\..\..\libraries\3rdparty\mbedtls_config;..\..\..\..\..\libraries\3rdparty\tinycbor\src;..\..\..\..\..\libraries\3rdparty\jsmn</AdditionalIncludeDirectories>
+			<UndefinePreprocessorDefinitions/>
 			<MinimalRebuild/>
 			<BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
 			<RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+			<MultiProcessorCompilation>true</MultiProcessorCompilation>
 			<PrecompiledHeaderOutputFile/>
 			<AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
 			<ObjectFileName>.\Debug/</ObjectFileName>
@@ -55,9 +65,8 @@
 			<BrowseInformation>true</BrowseInformation>
 			<PrecompiledHeader>NotUsing</PrecompiledHeader>
 			<ExceptionHandling>false</ExceptionHandling>
-			<CompileAs>CompileAsC</CompileAs>
 			<SDLCheck>true</SDLCheck>
-			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+			<CompileAs>CompileAsC</CompileAs>
 		</ClCompile>
 		<ResourceCompile>
 			<PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -75,6 +84,9 @@
 			<Profile>false</Profile>
 			<ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
 		</Link>
+		<PostBuildEvent>
+			<Command>copy $(SolutionDir)..\..\..\..\..\libraries\freertos_plus\aws\ota\test\test_files\*.* $(TEMP)</Command>
+		</PostBuildEvent>
 		<Bscmake>
 			<SuppressStartupBanner>true</SuppressStartupBanner>
 			<OutputFile>.\Debug/WIN32.bsc</OutputFile>
@@ -174,15 +186,6 @@
 		<ClInclude Include="..\..\..\..\..\libraries\freertos_plus\aws\greengrass\src\aws_helper_secure_connect.h"/>
 		<ClInclude Include="..\..\..\..\..\libraries\freertos_plus\aws\greengrass\include\aws_ggd_config_defaults.h"/>
 		<ClInclude Include="..\..\..\..\..\libraries\freertos_plus\aws\greengrass\include\aws_greengrass_discovery.h"/>
-		<ClInclude Include="..\..\..\..\..\libraries\freertos_plus\aws\ota\include\aws_iot_ota_agent.h"/>
-		<ClInclude Include="..\..\..\..\..\libraries\freertos_plus\aws\ota\include\aws_iot_ota_types.h"/>
-		<ClInclude Include="..\..\..\..\..\libraries\freertos_plus\aws\ota\src\aws_iot_ota_agent_internal.h"/>
-		<ClInclude Include="..\..\..\..\..\libraries\freertos_plus\aws\ota\src\aws_iot_ota_interface.h"/>
-		<ClInclude Include="..\..\..\..\..\libraries\freertos_plus\aws\ota\src\aws_iot_ota_pal.h"/>
-		<ClInclude Include="..\..\..\..\..\libraries\freertos_plus\aws\ota\src\mqtt\aws_iot_ota_cbor_internal.h"/>
-		<ClInclude Include="..\..\..\..\..\libraries\freertos_plus\aws\ota\src\mqtt\aws_iot_ota_cbor.h"/>
-		<ClInclude Include="..\..\..\..\..\libraries\freertos_plus\aws\ota\src\mqtt\aws_iot_ota_mqtt.h"/>
-		<ClInclude Include="..\..\..\..\..\libraries\freertos_plus\aws\ota\src\http\aws_iot_ota_http.h"/>
 		<ClInclude Include="..\..\..\..\..\libraries\abstractions\posix\include\FreeRTOS_POSIX\errno.h"/>
 		<ClInclude Include="..\..\..\..\..\libraries\abstractions\posix\include\FreeRTOS_POSIX\fcntl.h"/>
 		<ClInclude Include="..\..\..\..\..\libraries\abstractions\posix\include\FreeRTOS_POSIX\mqueue.h"/>
@@ -210,6 +213,16 @@
 		<ClInclude Include="..\..\..\..\..\libraries\device_defender_for_aws\source\include\defender.h"/>
 		<ClInclude Include="..\..\..\..\..\libraries\device_defender_for_aws\source\include\defender_config_defaults.h"/>
 		<ClInclude Include="..\..\..\..\..\libraries\jobs_for_aws\source\include\jobs.h"/>
+		<ClInclude Include="..\..\..\..\..\libraries\ota\source\include\ota.h"/>
+		<ClInclude Include="..\..\..\..\..\libraries\ota\source\include\ota_types.h"/>
+		<ClInclude Include="..\..\..\..\..\libraries\ota\source\include\ota_os_interface.h"/>
+		<ClInclude Include="..\..\..\..\..\libraries\ota\source\include\ota_platform_interface.h"/>
+		<ClInclude Include="..\..\..\..\..\libraries\ota\source\include\ota_private.h"/>
+		<ClInclude Include="..\..\..\..\..\libraries\ota\source\include\ota_interface_private.h"/>
+		<ClInclude Include="..\..\..\..\..\libraries\ota\source\include\ota_base64_private.h"/>
+		<ClInclude Include="..\..\..\..\..\libraries\ota\source\include\ota_mqtt_private.h"/>
+		<ClInclude Include="..\..\..\..\..\libraries\ota\source\include\ota_cbor_private.h"/>
+		<ClInclude Include="..\..\..\..\..\demos\mqtt_subscription_manager\mqtt_subscription_manager.h"/>
 		<ClInclude Include="..\..\..\..\..\demos\tcp\aws_tcp_echo_client_single_tasks.h"/>
 		<ClInclude Include="..\..\..\..\..\vendors\pc\boards\windows\aws_demos\application_code\aws_demo_logging.h"/>
 		<ClInclude Include="..\..\..\..\..\libraries\3rdparty\mbedtls\include\mbedtls\aes.h"/>
@@ -381,13 +394,6 @@
 		<ClCompile Include="..\..\..\..\..\libraries\coreHTTP\source\3rdparty\http_parser\http_parser.c"/>
 		<ClCompile Include="..\..\..\..\..\libraries\freertos_plus\aws\greengrass\src\aws_greengrass_discovery.c"/>
 		<ClCompile Include="..\..\..\..\..\libraries\freertos_plus\aws\greengrass\src\aws_helper_secure_connect.c"/>
-		<ClCompile Include="..\..\..\..\..\libraries\freertos_plus\aws\ota\src\aws_iot_ota_agent.c"/>
-		<ClCompile Include="..\..\..\..\..\libraries\freertos_plus\aws\ota\src\aws_iot_ota_interface.c"/>
-		<ClCompile Include="..\..\..\..\..\libraries\3rdparty\mbedtls\library\base64.c"/>
-		<ClCompile Include="..\..\..\..\..\vendors\pc\boards\windows\ports\ota\aws_ota_pal.c"/>
-		<ClCompile Include="..\..\..\..\..\libraries\freertos_plus\aws\ota\src\mqtt\aws_iot_ota_cbor.c"/>
-		<ClCompile Include="..\..\..\..\..\libraries\freertos_plus\aws\ota\src\mqtt\aws_iot_ota_mqtt.c"/>
-		<ClCompile Include="..\..\..\..\..\libraries\freertos_plus\aws\ota\src\http\aws_iot_ota_http.c"/>
 		<ClCompile Include="..\..\..\..\..\libraries\freertos_plus\standard\freertos_plus_cli\source\FreeRTOS_CLI.c"/>
 		<ClCompile Include="..\..\..\..\..\libraries\freertos_plus\standard\freertos_plus_cli\source\FreeRTOS_CLI_Console.c"/>
 		<ClCompile Include="..\..\..\..\..\libraries\freertos_plus\standard\freertos_plus_posix\source\FreeRTOS_POSIX_clock.c"/>
@@ -406,7 +412,22 @@
 		<ClCompile Include="..\..\..\..\..\libraries\device_shadow_for_aws\source\shadow.c"/>
 		<ClCompile Include="..\..\..\..\..\libraries\device_defender_for_aws\source\defender.c"/>
 		<ClCompile Include="..\..\..\..\..\libraries\jobs_for_aws\source\jobs.c"/>
+		<ClCompile Include="..\..\..\..\..\libraries\ota\source\ota.c"/>
+		<ClCompile Include="..\..\..\..\..\libraries\ota\source\ota_interface.c"/>
+		<ClCompile Include="..\..\..\..\..\libraries\ota\source\ota_base64.c"/>
+		<ClCompile Include="..\..\..\..\..\libraries\ota\source\dependency\coreJSON\source\core_json.c"/>
+		<ClCompile Include="..\..\..\..\..\libraries\ota\source\dependency\3rdparty\tinycbor\src\cborpretty.c"/>
+		<ClCompile Include="..\..\..\..\..\libraries\ota\source\dependency\3rdparty\tinycbor\src\cborpretty_stdio.c"/>
+		<ClCompile Include="..\..\..\..\..\libraries\ota\source\dependency\3rdparty\tinycbor\src\cborencoder.c"/>
+		<ClCompile Include="..\..\..\..\..\libraries\ota\source\dependency\3rdparty\tinycbor\src\cborencoder_close_container_checked.c"/>
+		<ClCompile Include="..\..\..\..\..\libraries\ota\source\dependency\3rdparty\tinycbor\src\cborerrorstrings.c"/>
+		<ClCompile Include="..\..\..\..\..\libraries\ota\source\dependency\3rdparty\tinycbor\src\cborparser.c"/>
+		<ClCompile Include="..\..\..\..\..\libraries\ota\source\dependency\3rdparty\tinycbor\src\cborparser_dup_string.c"/>
+		<ClCompile Include="..\..\..\..\..\libraries\ota\source\portable\os\ota_os_freertos.c"/>
+		<ClCompile Include="..\..\..\..\..\libraries\ota\source\ota_mqtt.c"/>
+		<ClCompile Include="..\..\..\..\..\libraries\ota\source\ota_cbor.c"/>
 		<ClCompile Include="..\..\..\..\..\demos\common\mqtt_demo_helpers\mqtt_demo_helpers.c"/>
+		<ClCompile Include="..\..\..\..\..\demos\mqtt_subscription_manager\mqtt_subscription_manager.c"/>
 		<ClCompile Include="..\..\..\..\..\demos\coreMQTT\mqtt_demo_mutual_auth.c"/>
 		<ClCompile Include="..\..\..\..\..\demos\coreMQTT\mqtt_demo_connection_sharing.c"/>
 		<ClCompile Include="..\..\..\..\..\demos\defender\aws_iot_demo_defender.c"/>
@@ -418,7 +439,7 @@
 		<ClCompile Include="..\..\..\..\..\demos\https\iot_demo_https_s3_upload_async.c"/>
 		<ClCompile Include="..\..\..\..\..\demos\https\iot_demo_https_common.c"/>
 		<ClCompile Include="..\..\..\..\..\demos\jobs_for_aws\jobs_demo.c"/>
-		<ClCompile Include="..\..\..\..\..\demos\ota\aws_iot_ota_update_demo.c"/>
+		<ClCompile Include="..\..\..\..\..\demos\ota\ota_demo_core_mqtt.c"/>
 		<ClCompile Include="..\..\..\..\..\demos\tcp\aws_tcp_echo_client_single_task.c"/>
 		<ClCompile Include="..\..\..\..\..\vendors\pc\boards\windows\aws_demos\application_code\main.c"/>
 		<ClCompile Include="..\..\..\..\..\vendors\pc\boards\windows\aws_demos\application_code\aws_demo_logging.c"/>
@@ -432,6 +453,7 @@
 		<ClCompile Include="..\..\..\..\..\libraries\3rdparty\mbedtls\library\aria.c"/>
 		<ClCompile Include="..\..\..\..\..\libraries\3rdparty\mbedtls\library\asn1parse.c"/>
 		<ClCompile Include="..\..\..\..\..\libraries\3rdparty\mbedtls\library\asn1write.c"/>
+		<ClCompile Include="..\..\..\..\..\libraries\3rdparty\mbedtls\library\base64.c"/>
 		<ClCompile Include="..\..\..\..\..\libraries\3rdparty\mbedtls\library\bignum.c"/>
 		<ClCompile Include="..\..\..\..\..\libraries\3rdparty\mbedtls\library\blowfish.c"/>
 		<ClCompile Include="..\..\..\..\..\libraries\3rdparty\mbedtls\library\camellia.c"/>
